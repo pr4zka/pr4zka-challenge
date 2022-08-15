@@ -3,7 +3,7 @@ const router = express.Router();
 const Personajes = require("../controllers/personajes");
 const { uplaod } = require("../controllers/uplaodImage");
 const {postValidate, editValidator, deleteValidator, postImageValidation} = require('../validators/character/index')
-
+const authMiddleware = require("../middlewares/session");
 
 /**
  * @swagger
@@ -67,7 +67,7 @@ router.post("/characters",postValidate, Personajes.createPersonajes);
  *             items:
  *             $ref: '#/components/schemas/Characters'
  */
-router.get("/characters", Personajes.getCharacters);
+router.get("/characters",authMiddleware ,Personajes.getCharacters);
 
 /**
  * @swagger
@@ -93,7 +93,7 @@ router.get("/characters", Personajes.getCharacters);
  *     404:
  *       description: Personaje no encontrado
  */
-router.get("/details/:id", Personajes.getDetails);
+router.get("/details/:id",authMiddleware ,Personajes.getDetails);
 
 /**
  * @swagger
@@ -114,7 +114,7 @@ router.get("/details/:id", Personajes.getDetails);
  *     404:
  *       description: Personaje no encontrado
  */
-router.delete("/characters/:id", deleteValidator, Personajes.deletePersonajes);
+router.delete("/characters/:id",deleteValidator, Personajes.deletePersonajes);
 
 /**
  * @swagger
@@ -153,10 +153,15 @@ router.put("/characters/:id", editValidator ,Personajes.updatePersonajes);
  *    parameters:
  *      - in: query
  *        name: filter[nombre]
+ *        example: Iron Man
+ *      - in: query
+ *        name: filter[edad]
+ *        example: 45
+ *      - in: query
+ *        name: movies[idMovie]
+ *        example: 1
  *        schema:
  *         type: string
- *        required: true
- *        description: Ingrese el nombre del personaje o la edad.
  *    responses:
  *     200:
  *       description: Lista los personajes encontrados
@@ -167,7 +172,7 @@ router.put("/characters/:id", editValidator ,Personajes.updatePersonajes);
  *             items:
  *             $ref: '#/components/schemas/Characters'
  */
-router.get("/characterBy", Personajes.getAllPersonajes);
+router.get("/characterBy", authMiddleware ,Personajes.getAllPersonajes);
 
 /**
  * @swagger

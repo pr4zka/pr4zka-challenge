@@ -61,7 +61,7 @@ router.post("/genero", tokenMiddleware, genero.create);
  *             items:
  *             $ref: '#/components/schemas/Characters'
  */
-router.get("/genero", genero.getAll);
+router.get("/genero", tokenMiddleware, genero.getAll);
 
 /**
  * @swagger
