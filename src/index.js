@@ -49,7 +49,7 @@ app.get("/", (req, res) => {
 
 //server
 app.listen(port, () => { 
-  sequelize.sync({ force: false });
+  sequelize.sync({ force: true });
   console.log("Server is running on port 3000");
 });
 
