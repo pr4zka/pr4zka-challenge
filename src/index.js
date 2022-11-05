@@ -13,7 +13,7 @@ const swaggerSpec = {
   definition:{
     openapi: "3.0.0",
     info:{
-      title: "API Dinesy Documentation",
+      title: "API Dinesy - Challenge Alkemy",
       version: "1.0.0",
     },
     servers: [
@@ -42,7 +42,9 @@ app.use("/api/", require("./routes/personajes"));
 app.use("/api/auth/", require("./routes/auth"));
 app.use("/api/", require("./routes/peliculas"));
 app.use("/api/", require("./routes/genero"));
-
+app.get("/", (req, res) => {
+  res.redirect("/api-docs");
+})
 
 
 //server
