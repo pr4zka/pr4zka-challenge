@@ -29,7 +29,11 @@ const swaggerSpec = {
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors());
+app.use(cors({
+  origin: "*",
+  allowedHeaders: "*",
+  accessControlAllowOrigin: "*",
+}));
 
 //para leer la documentacion de la API
 app.use(
