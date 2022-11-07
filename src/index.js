@@ -8,6 +8,7 @@ const path = require("path");
 const swaggerUI = require("swagger-ui-express");
 const swaggerJsDoc = require("swagger-jsdoc");
 
+
 //swagger documentation
 const swaggerSpec = {
   definition: {
@@ -26,13 +27,14 @@ const swaggerSpec = {
 };
 
 //middleware
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(
   cors({
     origin: "*",
-    allowedHeaders: "*",
   })
 );
 
@@ -71,7 +73,7 @@ app.use(function (req, res, next) {
   next();
 });
 app.all("*", (req, res) => {
-  res.redirect("/api-docs");
+  res.render('/api-docs');
 });
 app.use("/api/", require("./routes/personajes"));
 app.use("/api/auth/", require("./routes/auth"));
