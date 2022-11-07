@@ -29,11 +29,12 @@ const swaggerSpec = {
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(morgan("dev"));
-app.use(cors({
-  origin: "*",
-  allowedHeaders: "*",
-  accessControlAllowOrigin: "*",
-}));
+app.use(
+  cors({
+    origin: "*",
+    allowedHeaders: "*",
+  })
+);
 
 //para leer la documentacion de la API
 app.use(
@@ -51,6 +52,7 @@ app.use("/api/auth/", require("./routes/auth"));
 app.use("/api/", require("./routes/peliculas"));
 app.use("/api/", require("./routes/genero"));
 app.get("/", (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
   res.redirect("/api-docs");
 });
 
